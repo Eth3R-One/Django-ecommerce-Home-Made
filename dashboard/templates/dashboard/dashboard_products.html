@@ -1,0 +1,133 @@
+{% extends 'dashboard/dashboard_base.html' %}
+
+{% load static %}
+{% load sass_tags %}
+
+{% block css %}
+<!-- Plugins css start-->
+<link rel="stylesheet" type="text/css" href="{% sass_src 'assets/scss/vendors/select2.scss' %}">
+<link rel="stylesheet" type="text/css" href="{% sass_src 'assets/scss/vendors/owlcarousel.scss' %}">
+<link rel="stylesheet" type="text/css" href="{% sass_src 'assets/scss/vendors/range-slider.scss' %}">
+<!-- Plugins css Ends-->
+{% endblock %}
+
+{% block content %}
+
+<div class="page-body">
+      <div class="container-fluid product-wrapper">
+        {% include 'core/message.html' %}
+            {% comment %} {% include "layout/breadcrumb.html" %} {% endcomment %}
+            
+
+                         {% comment %} {% include "applications/ecommerce/product/components/filters.html" %} {% endcomment %}
+                         {% comment %} {% include "applications/ecommerce/product/components/product-1.html" %}
+                         {% include "applications/ecommerce/product/components/product-2.html" %}
+                         {% include "applications/ecommerce/product/components/product-3.html" %}
+                         {% include "applications/ecommerce/product/components/product-4.html" %}
+                         {% include "applications/ecommerce/product/components/product-5.html" %}
+                         {% include "applications/ecommerce/product/components/product-6.html" %} {% endcomment %}
+                         <div class="product-wrapper-grid">
+                            <div class="table-responsive product-table">
+                            <div class="row">
+                                {% for product in products %}
+                                <div class="col-xl-3 col-sm-6 xl-4">
+                                <div class="card">
+                                    <div class="product-box">
+                                    {% comment %} {% if product.image %} {% endcomment %}
+                                        <div class="product-img"><img class="img-fluid" src="{{product.get_thumbnail}}" alt="">
+                                    {% comment %} {% endif %} {% endcomment %}
+                                        <div class="product-hover">
+                                        <ul>
+                                            <li>
+                                            <button class="btn" type="button"><i class="icon-shopping-cart"></i></button>
+                                            </li>
+                                            <li>
+                                            <button class="btn" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalCenter"><i class="icon-eye"></i></button>
+                                            </li>
+                                            <li>
+                                            <button class="btn" type="button"><i class="icofont icofont-law-alt-2"></i></button>
+                                            </li>
+                                        </ul>
+                                        </div>
+                                    </div>
+                                    {% comment %} <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenter" aria-hidden="true">
+                                        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                            <div class="product-box row">
+                                                <div class="product-img col-lg-6"><img class="img-fluid" src="{{product.image.url}}" alt=""></div>
+                                                <div class="product-details col-lg-6 text-start">
+                                                <h4>{{product.title}}</h4>
+                                                <div class="product-price">৳{{product.price}}
+                                                </div>
+                                                <div class="product-view">
+                                                    <h6 class="f-w-600">Product Details</h6>
+                                                    <p class="mb-0">{{product.description}}</p>
+                                                </div>
+                                                <div class="product-size">
+                                                    <ul>
+                                                    <li> 
+                                                        <button class="btn btn-outline-light" type="button">M</button>
+                                                    </li>
+                                                    <li> 
+                                                        <button class="btn btn-outline-light" type="button">L</button>
+                                                    </li>
+                                                    <li> 
+                                                        <button class="btn btn-outline-light" type="button">Xl</button>
+                                                    </li>
+                                                    </ul>
+                                                </div>
+                                                <div class="product-qnty">
+                                                    <h6 class="f-w-600">Quantity</h6>
+                                                    <fieldset>
+                                                    <div class="input-group">
+                                                        <input class="touchspin text-center" type="text" value="5">
+                                                    </div>
+                                                    </fieldset>
+                                                    <div class="addcart-btn"><a class="btn btn-primary" href="/cart">Add to Cart</a><a class="btn btn-primary ms-2" href="{% url 'dashboard-product-details' product.id %}">View Details</a></div>
+                                                </div>
+                                                </div>
+                                            </div>
+                                            <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div> {% endcomment %}
+                                    <div class="product-details">
+                                        <div class="rating"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></div><a href="{% url 'dashboard-product-details' product.slug %}">
+                                        <h4>{{product.title}}</h4></a>
+                                        <p>{{product.description}}</p>
+                                        <div class="product-price">৳{{product.price}}
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+
+
+              
+      </div>
+</div>
+
+{% endblock %}
+
+{% block scriptcontent %}
+<!-- Plugins JS start-->
+<script src="{% static 'assets/js/range-slider/ion.rangeSlider.min.js'%}"></script>
+<script src="{% static 'assets/js/range-slider/rangeslider-script.js'%}"></script>
+<script src="{% static 'assets/js/touchspin/vendors.min.js'%}"></script>
+<script src="{% static 'assets/js/touchspin/touchspin.js'%}"></script>
+<script src="{% static 'assets/js/touchspin/input-groups.min.js'%}"></script>
+<script src="{% static 'assets/js/owlcarousel/owl.carousel.js'%}"></script>
+<script src="{% static 'assets/js/select2/select2.full.min.js'%}"></script>
+<script src="{% static 'assets/js/select2/select2-custom.js'%}"></script>
+<script src="{% static 'assets/js/tooltip-init.js'%}"></script>
+<script src="{% static 'assets/js/product-tab.js'%}"></script>
+<!-- Plugins JS Ends-->
+{% endblock %}

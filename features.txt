@@ -1,0 +1,4 @@
+1. Misc table for uploading logo cover and other images for the site and the user
+2. Custom dashboard for controling the site
+3. Images resize and multiple images
+4. 

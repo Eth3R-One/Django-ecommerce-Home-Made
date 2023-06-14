@@ -1,0 +1,90 @@
+{% extends 'core/base.html' %} {% comment %} {% block title %}Profile{% endblock
+%} {% endcomment %} {% block content %}
+<section
+  class="ec-page-content ec-vendor-uploads ec-user-account section-space-p"
+>
+  <div class="container">
+    <div class="row">
+      <!-- Sidebar Area Start -->
+      {% include 'user/user_sidebar.html' %}
+      <div class="ec-shop-rightside col-lg-9 col-md-12">
+        <div class="ec-vendor-dashboard-card">
+          <div class="ec-vendor-card-header">
+            <h5>Product History</h5>
+          </div>
+          <div class="ec-vendor-card-body">
+            <div class="ec-vendor-card-table">
+              <table class="table ec-table">
+                <thead>
+                  <tr>
+                    <th scope="col">No.</th>
+                    <th scope="col">Items</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Payment</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for order in orders %}
+                  <tr>
+                    <th scope="row"><span>{{ forloop.counter }}</span></th>
+                    {% comment %} Get count from order_count {% endcomment %}
+                    <td><span> {{order.get_order_count}} </span></td>
+                    <td><span>{{order.created_at|date:"M d, Y"}}</span></td>
+                    <td>
+                      {% if order.is_paid %}
+                      <span class="badge bg-success text-white">Paid</span>
+                      {% else %}
+                      <span class="badge bg-danger text-white">Unpaid</span>
+                      {% endif %}
+                    </td>
+
+                    {% if order.status == 'Pending'%}
+                    <td>
+                      <span class="badge bg-warning text-dark"
+                        >{{order.status|upper}}</span
+                      >
+                    </td>
+                    {% elif order.status == 'Delivered' %}
+                    <td>
+                      <span class="badge bg-success text-white"
+                        >{{order.status|upper}}</span
+                      >
+                    </td>
+                    {% elif order.status == 'Cancelled' %}
+                    <td>
+                      <span class="badge bg-danger text-white"
+                        >{{order.status|upper}}</span
+                      >
+                    </td>
+                    {% elif order.status == 'Confirmed' %}
+                    <td>
+                      <span class="badge bg-primary text-white"
+                        >{{order.status|upper}}</span
+                      >
+                    </td>
+                    {% else %}
+                    <td>
+                      <span class="badge bg-info text-white"
+                        >{{order.status|upper}}</span
+                      >
+                    </td>
+                    {% endif %}
+                    <td>
+                      <span class="badge bg-info text-white">
+                        <a href="{% url 'order-details' order.uid %}"
+                          >View Details</a>
+                    </td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

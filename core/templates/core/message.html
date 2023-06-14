@@ -1,0 +1,16 @@
+{% for message in messages %}
+  <div class="container-fluid p-0 messages">
+      <div class="alert {{ message.tags }} alert-dismissible" role="alert" >
+          <div class="text-center">{{ message }}
+            {% comment %} <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button> {% endcomment %}
+          </div>
+        </div>
+      </div>
+
+      {% comment %} <div class="notification-popup hide">
+        <p><span class="task"></span><span class="notification-text">Here is Notification popup</span></p>
+      </div> {% endcomment %}
+{% endfor %}
+

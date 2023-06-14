@@ -1,0 +1,133 @@
+{% extends 'dashboard/dashboard_base.html' %}
+
+{% load static %}
+{% load sass_tags %}
+
+{% block css %}
+<!-- Plugins css start-->
+<link rel="stylesheet" type="text/css" href="{% sass_src 'assets/scss/vendors/datatables.scss' %}">
+
+<!-- Plugins css Ends-->
+{% endblock %}
+
+{% block content %}
+<div class="page-body">
+    <div class="container-fluid">
+        {% include 'core/message.html' %}
+        <div class="row">
+            <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                <h5>Order history</h5>
+                </div>
+                <div class="card-body">
+                <div class="order-history table-responsive">
+                    <table class="table table-bordernone display" id="basic-2">
+                    <thead>
+                        <tr>
+                            <th scope="col">Customer</th>
+                            <th scope="col">Items</th>
+                            <th scope="col">Total Quantity</th>
+                            <th scope="col">Ordered At</th>
+                            <th scope="col">Order Status</th>
+                            <th scope="col">Payment Status</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Details</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for order in orders %}
+                        <tr>
+                        <td>
+                            <a href="{% url 'dashboard-order-details' order.uid %}">
+                                @{{order.user.username}} - {{order.user.first_name}} {{order.user.last_name}}
+                            </a>
+                        </td>
+                        <td>
+                            <div class="product-name">  
+                                <a href="{% url 'dashboard-order-details' order.uid %}">
+                                {{order.get_order_count}}
+                                </a>
+                        </td>
+                        <td>
+                            <a href="{% url 'dashboard-order-details' order.uid %}">
+                            {{order.get_total_quantity}}
+                            </a>
+                             
+                        </td>
+                        <td> 
+                            <a href="{% url 'dashboard-order-details' order.uid %}">{{order.created_at|date:"M d, Y"}}
+                            </a>
+                            </td>
+                         
+                        {% if order.status == 'Pending'%}
+                            <td>
+                            <span class="badge bg-warning text-dark"
+                                > {{order.status|upper}} </span
+                            >
+                            </td>
+                            {% elif order.status == 'Delivered' %}
+                            <td>
+                            <span class="badge bg-success text-white"
+                                > {{order.status|upper}} </span
+                            >
+                            </td>
+                            {% elif order.status == 'Cancelled' %}
+                            <td>
+                            <span class="badge badge-danger"
+                                > {{order.status|upper}} </span
+                            >
+                            </td>
+                            {% elif order.status == 'Confirmed' %}
+                            <td>
+                            <span class="badge badge-primary">
+                                {{order.status|upper}} </span
+                            >
+                            </td>
+                            {% else %}
+                            <td>
+                            <span class="badge bg-info text-white"
+                                > {{order.status|upper}} </span
+                            >
+                            </td>
+                            {% endif %}
+                         
+                        <td>
+                              
+                            {% if order.is_paid %}
+                                <span class="badge bg-success text-white">Paid</span>
+                            {% else %}
+                                <span class="badge bg-danger text-white">Unpaid</span>
+                            {% endif %}
+                             
+                          </td>
+                        <td><a href="{% url 'dashboard-order-details' order.uid %}"> {{order.get_total_price}}</a></td>
+                        <td>
+                            <a href="{% url 'dashboard-order-details' order.uid %}">
+                            <i class="icon-eye"></i>
+                            </a>
+                        </td>
+                        </tr>
+                        {% comment %}   {% endcomment %}
+                        {% endfor %}
+                    </tbody>
+                    </table>
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
+
+{% block scriptcontent %}
+<!-- Plugins JS start-->
+<script src="{% static 'assets/js/datatable/datatables/jquery.dataTables.min.js'%}"></script>
+<script src="{% static 'assets/js/datatable/datatables/datatable.custom.js'%}"></script>
+<script src="{% static 'assets/js/tooltip-init.js'%}"></script>
+<!-- Plugins JS Ends-->
+{% endblock %}

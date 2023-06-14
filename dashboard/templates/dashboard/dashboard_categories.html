@@ -1,0 +1,178 @@
+{% extends 'dashboard/dashboard_base.html' %} {% load static %} {% load sass_tags %}
+{% block css %}
+<!-- Plugins css start-->
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="{% sass_src 'assets/scss/vendors/datatables.scss' %}" />
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="{% sass_src 'assets/scss/vendors/owlcarousel.scss' %}"
+/>
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="{% sass_src 'assets/scss/vendors/rating.scss' %}"
+/>
+<!-- Plugins css Ends-->
+{% endblock %}
+{% block content %}
+
+<div class="page-body">
+  <div class="container-fluid">
+    {% include 'core/message.html' %}
+    <div class="row">
+      <!-- Individual column searching (text inputs) Starts-->
+      <div class="col-sm-12">
+        <div class="card">
+          <div class="card-header">
+            <h5>Individual column searching (text inputs)</h5>
+            <span
+              >The searching functionality provided by DataTables is useful for
+              quickly search through the information in the table - however the
+              search is global, and you may wish to present controls that search
+              on specific columns.</span
+            >
+          </div>
+          <div class="card-body flex">
+            <div class="table-responsive product-table">
+              <table class="display" id="basic-1">
+                <thead>
+                  <tr>
+                    {% comment %}
+                    <th>No.</th>
+                    {% endcomment %}
+                    <th>Title</th>
+                    <th>Items</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for category in categories %}
+                  <tr>
+                    {% comment %}
+                    <td>{{ forloop.counter }}</td>
+                    {% endcomment %}
+                    <td>
+                      <h6><b>{{category.title}}</b></h6>
+                      {% comment %} <span>{{category.slug}}</span> {% endcomment %}
+                    </td>
+                    <td>
+                      <button class="btn btn-info" type="button">
+                        <a
+                          href="{% url 'dashboard-category-details' category.slug %}"
+                        >
+                          View items in this category</a
+                        >
+                      </button>
+                    </td>
+                    <td>
+                      <!-- <button class="btn btn-primary" type="button" data-bs-toggle="modal"
+                                data-bs-target="#exampleModalCenter">Vertically centered</button> -->
+
+                      {% comment %} <button
+                        class="btn btn-danger btn-xs"
+                        type="button"
+                        data-bs-toggle="modal"
+                        data-original-title="btn btn-danger btn-xs"
+                        data-bs-target="#exampleModalCenter"
+                        title="Delete"
+                      >
+                        Delete
+                      </button>
+
+                      <div
+                        class="modal fade"
+                        id="exampleModalCenter"
+                        tabindex="-1"
+                        role="dialog"
+                        aria-labelledby="exampleModalCenter"
+                        aria-hidden="true"
+                      >
+                        <div
+                          class="modal-dialog modal-dialog-centered"
+                          role="document"
+                        >
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title">Modal title</h5>
+                              <button
+                                class="btn-close"
+                                type="button"
+                                data-bs-dismiss="modal"
+                                aria-label="Close"
+                              ></button>
+                            </div>
+                            <div class="modal-body">
+                              <p>
+                                Cras mattis consectetur purus sit amet
+                                fermentum. Cras justo odio, dapibus ac facilisis
+                                in, egestas eget quam. Morbi leo risus, porta ac
+                                consectetur ac, vestibulum at eros.
+                              </p>
+                            </div>
+                            <div class="modal-footer">
+                              <button
+                                class="btn btn-secondary"
+                                type="button"
+                                data-bs-dismiss="modal"
+                              >
+                                Close
+                              </button>
+                              <button
+                                class="btn btn-primary"
+                                data-bs-dismiss="modal"
+                                type="button"
+                              >
+                                Save changes
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <button
+                        class="btn btn-success btn-xs"
+                        type="button"
+                        data-original-title="btn btn-danger btn-xs"
+                        title="Edit"
+                      >
+                      <a href="{% url 'dashboard-update-category' category.id %}">
+                        Edit
+                      </a>
+                      </button> {% endcomment %}
+
+
+                      <div class="m-t-15 btn-showcase">
+                        <a class="btn btn-primary" href="{% url 'dashboard-update-category' category.id %}" title=""> <i class="fa fa-edit me-1"></i>Edit</a>
+                        <a class="btn btn-secondary confirm-delete" href="{% url 'dashboard-delete-category' category.id %}"> <i class="fa fa-warning me-1"></i>Delete</a>
+                      </div>
+
+
+
+                    </td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Individual column searching (text inputs) Ends-->
+    </div>
+  </div>
+</div>
+
+{% endblock %} {% block scriptcontent %}
+<!-- Plugins JS start-->
+<script src="{% static 'assets/js/datatable/datatables/jquery.dataTables.min.js'%}"></script>
+<script src="{% static 'assets/js/rating/jquery.barrating.js'%}"></script>
+<script src="{% static 'assets/js/rating/rating-script.js'%}"></script>
+<script src="{% static 'assets/js/owlcarousel/owl.carousel.js'%}"></script>
+<script src="{% static 'assets/js/ecommerce.js'%}"></script>
+<script src="{% static 'assets/js/product-list-custom.js'%}"></script>
+<script src="{% static 'assets/js/tooltip-init.js'%}"></script>
+<!-- Plugins JS Ends-->
+{% endblock %}

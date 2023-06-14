@@ -1,0 +1,114 @@
+{% extends 'core/base.html' %} {% comment %} {% block title %}Profile{% endblock
+    %} {% endcomment %} {% block content %}
+    <section
+      class="ec-page-content ec-vendor-uploads ec-user-account section-space-p"
+    >
+      <div class="container">
+        <div class="row">
+          <!-- Sidebar Area Start -->
+          {% include 'user/user_sidebar.html' %}
+          <div class="ec-shop-rightside col-lg-9 col-md-12">
+            <div class="ec-vendor-dashboard-card">
+              <div class="ec-vendor-card-header">
+                <h5>
+                  <a href={% url 'orders' %}><i class="fas fa-chevron-left"></i>
+                  </a> Product History</h5>
+              </div>
+              <div class="ec-vendor-card-body">
+                <div class="ec-vendor-card-table">
+                  <table class="table ec-table">
+                    <thead>
+                      <tr>
+                        <th scope="col">No.</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Qunatity</th>
+                        <th scope="col">Total</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for order in order_items %}
+                      <tr>
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td><span> {{order.product.title}} </span></td>
+                        <td><span>৳{{order.price}}</span></td>
+                        <td><span>{{order.quantity}}</span></td>
+                        <td><span>৳{{order.get_total_price}}</span></td>
+                      </tr>
+                      {% endfor %}
+                      <tr>
+                        <td></td>
+                        
+                        
+                      </tr>
+                    </tbody>
+                    <thead>
+                      <tr>
+                        <th scope="col">Total Items: {{order.get_order_count}}</th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                        <th scope="col">{{order.get_total_quantity}}</th>
+                        <th scope="col">৳{{order.get_total_price}}</th>
+                      </tr>
+                      
+                    </thead>
+                  </table>
+                  <br>
+                  <br>
+                  <br>
+                  <br>
+                  <br>
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>Order Date<th>
+                        <th>Delivery Date<th>
+                        <th>Phone<th>
+                        <th>Delivery Address<th>
+                        <th>Order Status<th>
+                        <th>Payment Status<th>
+                        <th>Payment Type<th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>{{order.created_at}}<td>
+                        {% if order.status != "Delivered" %}
+                          <td>Not Delivered<td>
+                        {% else %}
+                          <td>{{order.updated_at}}<td>
+                        {% endif %}
+                        {% comment %} <td>{{order.updated_at}}<td> {% endcomment %}
+                        <td>{{order.phone_number}}<td>
+                        <td>{{order.address}}<td>
+                        {% if order.status == "Pending" %}
+                          <td class ="text-warning">{{order.status}}<td>
+                        {% elif order.status == "Delivered" %}
+                          <td class ="text-success">{{order.status}}<td>
+                        {% elif order.status == "Cancelled" %}
+                          <td class ="text-danger">{{order.status}}<td>
+                        {% elif order.status == "Confirmed" %}
+                          <td class ="text-primary">{{order.status}}<td>
+                        {% else %}
+                          <td class ="text-primary">{{order.status}}<td>
+                        {% endif %}
+                        {% if order.is_paid == True %}
+                          <td class ="text-success">Paid<td>
+                        {% else %}
+                          <td class ="text-danger">Unpaid<td>
+                        {% endif %}
+                        {% comment %} <td>{{order.is_paid}}<td> {% endcomment %}
+                        <td>{{order.payment_method}}<td>
+
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    {% endblock %}
+    

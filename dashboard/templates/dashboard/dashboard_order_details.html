@@ -1,0 +1,233 @@
+{% extends 'dashboard/dashboard_base.html' %}
+
+{% load static %}
+{% load sass_tags %}
+{% load crispy_forms_tags %}
+
+
+{% block css %}
+<!-- Plugins css start-->
+<link rel="stylesheet" type="text/css" href="{% sass_src 'assets/scss/vendors/datatables.scss' %}">
+
+<!-- Plugins css Ends-->
+{% endblock %}
+
+{% block content %}
+<div class="page-body">
+    <div class="container-fluid">
+        {% include 'core/message.html' %}
+
+        <div class="row">
+            <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Datatable order history</h5>
+                </div>
+                <div class="card-body">
+                    <div class="mt-10 mb-10 ml-10 mr-10 ">
+                        <a href="{% url 'dashboard-orders' %}"><i class="icon-angle-left">Back</i></a>
+                    </div>
+                    <br>
+                    <br>
+                    <br>
+
+                <div class="order-history table-responsive">
+                    <table class="table table-bordernone display" id="basic-1">
+                    <thead>
+                        <tr>
+                            <th scope="col">Item No.</th>
+                            <th scope="col">Item's Name</th>
+                            <th scope="col">Quantity</th>
+                            {% comment %} <th scope="col">Ordered At</th> {% endcomment %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for order in orders %}
+                        <tr>
+                            <td>{{forloop.counter}}</td>
+                            <td>
+                                <div>{{order.product.title}}<div>
+                            </td>
+                            <td>{{order.quantity}}</td>
+                            {% comment %} <td>{{order.created_at|date:"M d, Y"}}</td> {% endcomment %}
+                            <td>
+                                
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                    </table>
+                </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-xl-3 col-lg-6">
+                            <address class="info-grid">
+                                <div class="info-title"><strong>Customer:</strong></div><br>
+                                <div class="info-content">
+                                    <span>{{main_order.user.first_name}}</span>
+                                    <span>{{main_order.user.last_name}}</span><br>
+                                    {{main_order.user.userprofile.address}}<br>
+                                    <abbr title="Phone">Phone:</abbr> {{main_order.user.userprofile.phone_number}}
+                                </div>
+                            </address>
+                        </div>
+                        <div class="col-xl-3 col-lg-6">
+                            <address class="info-grid">
+                                <div class="info-title"><strong>Shipped To:</strong></div><br>
+                                <div class="info-content">
+                                    {{main_order.address}}<br><br>
+                                </div>
+                                <abbr title="Phone">Phone:</abbr> {{main_order.phone_number}}
+                            </address>
+                        </div>
+                        <div class="col-xl-3 col-lg-6">
+                            <address class="info-grid">
+                                <div class="info-title"><strong>Payment Method:</strong></div><br>
+                                <div class="info-content">
+                                   <br>
+                                   {{main_order.payment_method|upper}}<br>
+                                </div>
+                            </address>
+                        </div>
+                        <div class="col-xl-3 col-lg-6">
+                            <address class="info-grid">
+                                <div class="info-title"><strong>Order Date:</strong></div><br>
+                                <div class="info-content">
+                                    {{main_order.created_at|date:"h:i A"}}<br>
+                                    {{main_order.created_at|date:"M d, Y"}}
+                                </div>
+                            </address>
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                    <br>
+                    <div class="col-xl-3 col-lg-6">
+                        <address class="info-grid">
+                            <div class="info-title"><strong>Order Status:</strong></div><br>
+                            
+                            <div class="info-content">
+                                Status:
+                                {% if main_order.status == 'Pending'%}
+                            <span class="txt-warning"
+                                > {{main_order.status|upper}} </span
+                            >
+                            
+                            {% elif main_order.status == 'Delivered' %}
+                            
+                            <span class="txt-success "
+                                > {{main_order.status|upper}} </span
+                            >
+                            
+                            {% elif main_order.status == 'Cancelled' %}
+                            
+                            <span class="txt-danger"
+                                > {{main_order.status|upper}} </span
+                            >
+                            
+                            {% elif main_order.status == 'Confirmed' %}
+                            
+                            <span class="txt-primary">
+                                {{main_order.status|upper}} </span
+                            >
+                            
+                            {% else %}
+                            
+                            <span class=" txt-info"
+                                > {{main_order.status|upper}} </span
+                            >
+                            {% endif %}<br>
+                                Payment Method: {{main_order.payment_method|upper}}<br>
+                                Payment Status:
+                                {% if main_order.is_paid %}
+                                <span class="txt-success"> PAID</span>
+                            {% else %}
+                                <span class="txt-danger"> UNPAID</span>
+                            {% endif %}<br>
+
+                            </div>
+                        </address>
+                    </div>
+                </div>
+                <!-- Tooltips and popovers modal-->
+            
+            <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#tooltipmodal">Update Order</button>
+              <div class="modal fade" id="tooltipmodal" tabindex="-1" role="dialog" aria-labelledby="tooltipmodal"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title">Update order</h5>
+                      <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <h5>Be careful updating</h5>
+                      <form method="post" >
+                        {% csrf_token %}
+                        {% comment %} {{ form|crispy }} {% endcomment %}
+                        <div class="ec-register-wrap" >
+                            {{form.status|as_crispy_field}}
+                        </div>
+                        <div class="ec-register-wrap" >
+                            {{form.payment_method|as_crispy_field}}
+                        </div>
+                        {% comment %} <div class="ec-register-wrap" >
+                            {{form.is_paid|as_crispy_field}}
+                        </div> {% endcomment %}
+
+                         {% if main_order.is_paid %}
+                        <div class="ec-register-wrap" >
+                            <input type="checkbox" id='is_paid' name='is_paid'
+                            checked> Paid
+                        </div>
+                        {% else %}
+                        <div class="ec-register-wrap" >
+                            <input type="checkbox" id='is_paid' name='is_paid' >Paid
+                        </div>
+                        {% endif %} 
+                         {% comment %} <span >
+                            {{form.updated_at|as_crispy_field}}
+                        </span>  {% endcomment %}
+
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
+                        <button class="btn btn-primary" type="submit">Save changes</button>
+                    </div>
+                </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scriptcontent %}
+<script>
+.con {
+    display: flex;
+    justify-content: space-between;
+    max-width: 400px;
+    margin: 0 auto;
+    background: #A0C5E8;
+    padding: 10px 0;
+  }
+  
+  span {
+    width: 50px;
+    height: 50px;
+    background: black;
+  }
+</script>
+<!-- Plugins JS start-->
+<script src="{% static 'assets/js/datatable/datatables/jquery.dataTables.min.js'%}"></script>
+<script src="{% static 'assets/js/datatable/datatables/datatable.custom.js'%}"></script>
+<script src="{% static 'assets/js/tooltip-init.js'%}"></script>
+
+<!-- Plugins JS Ends-->
+{% endblock %}

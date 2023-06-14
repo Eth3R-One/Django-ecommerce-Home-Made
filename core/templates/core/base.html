@@ -1,0 +1,238 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    
+    <title>
+        {% block title%}
+            {% if title %}
+                {{ title }} | Homemade by Lina
+            {% else %}
+                Homemade by Lina
+            {% endif %}
+        {% endblock %}
+    </title>
+    <meta name="keywords" content="apparel, catalog, clean, ecommerce, ecommerce HTML, electronics, fashion, html eCommerce, html store, minimal, multipurpose, multipurpose ecommerce, online store, responsive ecommerce template, shops" />
+    <meta name="description" content="Best ecommerce html template for single and multi vendor store.">
+    <meta name="author" content="ashishmaraviya">
+
+    <!-- site Favicon -->
+    <link rel="icon" href="{{logo.logo.url}}" sizes="32x32" />
+    <link rel="apple-touch-icon" href="{{logo.logo.url}}" />
+    <meta name="msapplication-TileImage" content="{{logo.logo.url}}" />
+
+    {% comment %} CSS here {% endcomment %}
+    {% include 'core/css.html' %}
+    {% block css %}
+    {% endblock css %}
+    {% comment %} End CSS {% endcomment %}
+</head>
+<body>
+    <!-- Header start  -->
+    <header class="ec-header">
+        <!--Ec Header Top Start -->
+        
+        <!-- Header responsive Bottom  End -->
+        <!-- EC Main Menu Start -->
+        {% comment %} NAV BAR Here {% endcomment %}
+        {% include 'core/nav.html' %}
+        {% include 'core/message.html' %}
+        
+    </header>
+    <!-- Header End  -->
+
+
+
+
+    <!-- Main Slider Start -->
+   {% block content %}
+   
+   {% endblock content %}
+   
+
+    <!-- Ec Instagram End -->
+
+    <!-- Footer Start -->
+    <footer class="ec-footer section-space-mt">
+        <div class="footer-container">
+            <div class="footer-bottom">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <!-- Footer social Start -->
+                        <div class="col text-left footer-bottom-left">
+                            <div class="footer-bottom-social">
+                                <span class="social-text text-upper">Follow us on:</span>
+                                <ul class="mb-0">
+                                    <li class="list-inline-item"><a class="hdr-facebook" href="https://www.facebook.com/AleyaLina4" target="_blank"><i class="ecicon eci-facebook"></i></a></li>
+                                    <li class="list-inline-item"><a class="hdr-instagram" href="https://www.instagram.com/homemadebylina04/" target="_blank"><i class="ecicon eci-instagram"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Footer Area End -->
+
+    <!-- Modal -->
+    <div class="modal fade" id="ec_quickview_modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <button type="button" class="btn-close qty_close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-5 col-sm-12 col-xs-12">
+                            <!-- Swiper -->
+                            <div class="qty-product-cover">
+                                <div class="qty-slide">
+                                    <img class="img-responsive" src="{% static 'frontend/assets/images/product-image/3_1.jpg' %}" alt="">
+                                </div>
+                                <div class="qty-slide">
+                                    <img class="img-responsive" src="{% static 'frontend/assets/images/product-image/3_2.jpg' %}" alt="">
+                                </div>
+                                <div class="qty-slide">
+                                    <img class="img-responsive" src="{% static 'frontend/assets/images/product-image/3_3.jpg' %}" alt="">
+                                </div>
+                                <div class="qty-slide">
+                                    <img class="img-responsive" src="{% static 'frontend/assets/images/product-image/3_4.jpg' %}" alt="">
+                                </div>
+                                <div class="qty-slide">
+                                    <img class="img-responsive" src="{% static 'frontend/assets/images/product-image/3_5.jpg' %}" alt="">
+                                </div>
+                            </div>
+                            <div class="qty-nav-thumb">
+                                <div class="qty-slide">
+                                    <img class="img-responsive" src="{% static 'frontend/assets/images/product-image/3_1.jpg' %}" alt="">
+                                </div>
+                                <div class="qty-slide">
+                                    <img class="img-responsive" src="{% static 'frontend/assets/images/product-image/3_2.jpg' %}" alt="">
+                                </div>
+                                <div class="qty-slide">
+                                    <img class="img-responsive" src="{% static 'frontend/assets/images/product-image/3_3.jpg' %}" alt="">
+                                </div>
+                                <div class="qty-slide">
+                                    <img class="img-responsive" src="{% static 'frontend/assets/images/product-image/3_4.jpg' %}" alt="">
+                                </div>
+                                <div class="qty-slide">
+                                    <img class="img-responsive" src="{% static 'frontend/assets/images/product-image/3_5.jpg' %}" alt="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-7 col-sm-12 col-xs-12">
+                            <div class="quickview-pro-content">
+                                <h5 class="ec-quick-title"><a href="product-left-sidebar.html">Handbag leather purse for women</a>
+                                </h5>
+                                <div class="ec-quickview-rating">
+                                    <i class="ecicon eci-star fill"></i>
+                                    <i class="ecicon eci-star fill"></i>
+                                    <i class="ecicon eci-star fill"></i>
+                                    <i class="ecicon eci-star fill"></i>
+                                    <i class="ecicon eci-star"></i>
+                                </div>
+
+                                <div class="ec-quickview-desc">Lorem Ipsum is simply dummy text of the printing and
+                                    typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever
+                                    since the 1500s,</div>
+                                <div class="ec-quickview-price">
+                                    <span class="old-price">$100.00</span>
+                                    <span class="new-price">$80.00</span>
+                                </div>
+
+                                <div class="ec-pro-variation">
+                                    <div class="ec-pro-variation-inner ec-pro-variation-color">
+                                        <span>Color</span>
+                                        <div class="ec-pro-color">
+                                            <ul class="ec-opt-swatch">
+                                                <li><span style="background-color:#ebbf60;"></span></li>
+                                                <li><span style="background-color:#75e3ff;"></span></li>
+                                                <li><span style="background-color:#11f7d8;"></span></li>
+                                                <li><span style="background-color:#acff7c;"></span></li>
+                                                <li><span style="background-color:#e996fa;"></span></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="ec-pro-variation-inner ec-pro-variation-size ec-pro-size">
+                                        <span>Size</span>
+                                        <div class="ec-pro-variation-content">
+                                            <ul class="ec-opt-size">
+                                                <li class="active"><a href="#" class="ec-opt-sz"
+                                                        data-tooltip="Small">S</a></li>
+                                                <li><a href="#" class="ec-opt-sz" data-tooltip="Medium">M</a></li>
+                                                <li><a href="#" class="ec-opt-sz" data-tooltip="Large">X</a></li>
+                                                <li><a href="#" class="ec-opt-sz" data-tooltip="Extra Large">XL</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="ec-quickview-qty">
+                                    <div class="qty-plus-minus">
+                                        <input class="qty-input" type="text" name="ec_qtybtn" value="1" />
+                                    </div>
+                                    <div class="ec-quickview-cart ">
+                                        <button class="btn btn-primary"><img src="{% static 'frontend/assets/images/icons/cart.svg' %}"
+                                                class="svg_img pro_svg" alt="" /> Add To Cart</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal end -->
+
+    <!-- Newsletter Modal Start -->
+
+    <!-- Newsletter Modal end -->
+
+    <!-- Footer navigation panel for responsive display -->
+    <div class="ec-nav-toolbar">
+        <div class="container">
+            <div class="ec-nav-panel">
+                <div class="ec-nav-panel-icons">
+                    <a href="#ec-mobile-menu" class="navbar-toggler-btn ec-header-btn ec-side-toggle"><img
+                            src="{% static 'frontend/assets/images/icons/menu.svg' %}" class="svg_img header_svg" alt="icon" /></a>
+                </div>
+                <div class="ec-nav-panel-icons">
+                    <a href="{% url 'cart_view' %}" class="toggle-cart ec-header-btn ec-side-toggle"><img
+                            src="{% static 'frontend/assets/images/icons/cart.svg' %}" class="svg_img header_svg" alt="icon" /><span
+                            class="ec-cart-noti ec-header-count cart-count-lable">{{cart|length}}</span></a>
+                </div>
+                <div class="ec-nav-panel-icons">
+                    <a href="index.html" class="ec-header-btn"><img src="{% static 'frontend/assets/images/icons/home.svg' %}"
+                            class="svg_img header_svg" alt="icon" /></a>
+                </div>
+                <div class="ec-nav-panel-icons">
+                    <a href="wishlist.html" class="ec-header-btn"><img src="{% static 'frontend/assets/images/icons/wishlist.svg' %}"
+                            class="svg_img header_svg" alt="icon" /><span class="ec-cart-noti">4</span></a>
+                </div>
+                <div class="ec-nav-panel-icons">
+                    <a href="login.html" class="ec-header-btn"><img src="{% static 'frontend/assets/images/icons/user.svg' %}"
+                            class="svg_img header_svg" alt="icon" /></a>
+                </div>
+    
+            </div>
+        </div>
+    </div>
+    <!-- Cart Floating Button -->
+    <div class="ec-cart-float">
+        <a href="{% url 'cart_view' %}" class="ec-header-btn ec-side-toggle">
+            <div class="header-icon"><img src="{% static 'frontend/assets/images/icons/cart.svg' %}" class="svg_img header_svg" alt="cart" />
+            </div>
+            <span class="ec-cart-count cart-count-lable">{{cart|length}}</span>
+        </a>
+    </div>
+
+    <!-- Footer navigation panel for responsive display end -->
+    <!-- Vendor JS -->
+    {% comment %} JS here {% endcomment %}
+    {% include 'core/js.html' %}
+    {% comment %} End JS {% endcomment %}
+</body>
+</html>

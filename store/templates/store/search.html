@@ -1,0 +1,76 @@
+{% extends 'core/base.html' %}
+
+{% block title %}
+{{query}} | Homemade
+{% endblock %}
+
+{% block content %}
+
+
+<!-- Product tab Area Start -->
+<section class="section ec-product-tab section-space-p" id="collection">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="tab-content">
+                    <!-- 1st Product tab start -->
+                    <div class="tab-pane fade show active" id="tab-pro-for-all">
+                        <div class="section-title">
+                            <h2 >Search result</h2>
+                            {% if query %}
+                                <h2 class="ec-title">"{{query}}":</h2>
+                            {% endif %}
+                            {% comment %} <p class="sub-title">Browse The Collection of Top Categories</p> {% endcomment %}
+                        </div>
+                        {% if products%}
+                            <div class="row">
+                                {% for product in products %}
+                                <!-- Product Content -->
+                                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 mb-6  ec-product-content" data-animation="fadeIn">
+                                    <div class="ec-product-inner">
+                                        <div class="ec-pro-image-outer">
+                                            <div class="ec-pro-image">
+                                                <a href="product-left-sidebar.html" class="image">
+                                                    <img class="main-image"
+                                                        src="{{ product.image.url }}" alt="{{product.tilte}}" />
+                                                    <img class="hover-image"
+                                                        src="{{ product.image.url }}" alt="{{product.title}}" />
+                                                </a>
+                                                <span class="percentage">20%</span>
+                                                
+                                                <div class="ec-pro-actions">
+                                                    <a href="compare.html" class="ec-btn-group compare"
+                                                        title="Compare"><img src="assets/images/icons/compare.svg"
+                                                            class="svg_img pro_svg" alt="" /></a>
+                                                    <button title="Add To Cart" class="add-to-cart"><img
+                                                            src="assets/images/icons/cart.svg" class="svg_img pro_svg"
+                                                            alt="" /> Add To Cart</button>
+                                                    <a class="ec-btn-group wishlist" title="Wishlist"><img
+                                                            src="assets/images/icons/wishlist.svg"
+                                                            class="svg_img pro_svg" alt="" /></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="ec-pro-content">
+                                            <h5 class="ec-pro-title"><a href="{% url 'product_details' product.slug %}">{{product.title}}</a></h5>
+                                            <span class="ec-price">
+                                                <span class="old-price">৳{{product.price}}</span>
+                                                <span class="new-price">৳{{product.price}}</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                        <div class="section-title">
+                            <h2 class="ec-title">There is no result matching this</h2>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

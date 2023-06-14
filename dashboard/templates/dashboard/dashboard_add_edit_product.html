@@ -1,0 +1,57 @@
+{% extends 'dashboard/dashboard_base.html' %}
+
+{% load static %}
+{% load sass_tags %}
+{% load crispy_forms_tags %}
+{% block css %}
+<!-- Plugins css start-->
+<!-- Plugins css Ends-->
+{% endblock %}
+
+{% block content %}
+
+<div class="page-body">
+      <div class="container-fluid">
+            {% include 'core/message.html' %}
+            {% comment %} {% include 'core/form_error.html' %} {% endcomment %}
+            <div class="row">
+                  <div class="col-sm-12 col-xl-20">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="card">
+                                  <div class="card-header">
+                                    <h5>{{title}}</h5>
+                                  </div>
+                                  <div class="card-body">
+                                    <form method="post" enctype="multipart/form-data" action='' class="theme-form">
+                                        {% csrf_token %}
+                                        {{ form|crispy }}
+                                        <button class="btn btn-primary">{{title}}</button>
+                                        {% if title == "Add Product" %}
+                                          <a href="{% url 'dashboard-products' %}" class="btn btn-outline-info btn-margin-xl">Cancle</></a>
+                                        {% else %}
+                                          <a href="{% url 'dashboard-product-details' slug %}" class="btn btn-outline-info btn-margin-xl">Cancle</></a>
+                                        {% endif %}
+                                    </form>
+                                  </div>
+                                </div>
+                              </div>
+                        </div>
+                  </div>
+                  <div class="col-sm-12 col-xl-6">
+                        <div class="row">
+                              {% comment %} {% include "forms-table/forms/form-layout/default-form/components/mega-form.html" %}
+                              {% include "forms-table/forms/form-layout/default-form/components/inline-form.html" %} {% endcomment %}
+                        </div>
+                  </div>
+            </div>
+      </div>
+</div>
+
+{% endblock %}
+
+{% block scriptcontent %}
+<!-- Plugins JS start-->
+<script src="{% static 'assets/js/tooltip-init.js'%}"></script>
+<!-- Plugins JS Ends-->
+{% endblock %}

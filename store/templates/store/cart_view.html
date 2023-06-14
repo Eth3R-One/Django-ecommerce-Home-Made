@@ -1,0 +1,188 @@
+{% extends 'core/base.html' %} {% block content %} {% load static %}
+<section class="ec-page-content section-space-p">
+  <div class="container">
+    <div class="row">
+      {% if cart %}
+      <div class="ec-cart-leftside col-lg-8 col-md-12">
+        <!-- cart content Start -->
+        <div class="ec-cart-content">
+          <div class="ec-cart-inner">
+            <div class="row">
+              {% comment %}
+              <form action="#">
+                {% endcomment %}
+                <div class="table-content cart-table-content">
+                  <table>
+                    <thead>
+                      <tr>
+                        {% comment %}
+                        <th>No</th>
+                        {% endcomment %}
+                        <th>Product</th>
+                        <th>Price</th>
+                        <th style="text-align: center">Quantity</th>
+                        <th>Total</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for item in cart %}
+                      <tr>
+                        {% comment %}
+                        <td data-label="Price" class="ec-cart-pro-price">
+                          <span class="amount">{{forloop.counter}}</span>
+                        </td>
+                        {% endcomment %}
+                        <td data-label="Product" class="ec-cart-pro-name">
+                          <a
+                            href="{% url 'product_details' item.product.slug %}"
+                            ><img
+                              class="ec-cart-pro-img mr-4"
+                              src="{{item.product.get_thumbnail}}"
+                              alt=""
+                            />{{item.product.title}}</a
+                          >
+                        </td>
+                        <td data-label="Price" class="ec-cart-pro-price">
+                          <span class="amount">৳{{item.product.price}}</span>
+                        </td>
+                        <td data-label="Quantity" class="ec-cart-pro-quantity">
+                          <fieldset class="qty-box">
+                            <div class="group">
+                              <div class="touchspin text-center">
+                                <button>
+                                  <a
+                                    href="{% url 'change-quantity' item.product.id %}?action=minus"
+                                  >
+                                    <i class="fas fa-minus"></i>
+                                  </a>
+                                </button>
+                                {{item.quantity}}
+                                <button>
+                                  <a
+                                    href="{% url 'change-quantity' item.product.id %}?action=plus"
+                                  >
+                                    <i class="fas fa-plus-circle"></i>
+                                  </a>
+                                </button>
+                              </div>
+                            </div>
+                          </fieldset>
+                        </td>
+                        <td data-label="Total" class="ec-cart-pro-subtotal">
+                          ৳{% widthratio item.product.price 1 item.quantity %}
+                        </td>
+                        <td data-label="Remove" class="ec-cart-pro-remove">
+                          <a href="{% url 'remove-from-cart' item.product.id %}"
+                            ><i class="ecicon eci-trash-o"></i
+                          ></a>
+                        </td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+                <div class="row">
+                  <div class="col-lg-12">
+                    <div class="ec-cart-update-bottom">
+                      <a href="{% url 'home' %}">Continue Shopping</a>
+                      <a class=" btn btn-primary" href="{% url 'checkout' %}" >Check Out</a>
+                    </div>
+                  </div>
+                </div>
+                {% comment %}
+              </form>
+              {% endcomment %}
+            </div>
+          </div>
+        </div>
+        <!--cart content End -->
+      </div>
+      <!-- Sidebar Area Start -->
+      <div class="ec-cart-rightside col-lg-4 col-md-12">
+        <div class="ec-sidebar-wrap">
+          <!-- Sidebar Summary Block -->
+          <div class="ec-sidebar-block">
+            <div class="ec-sb-block-content">
+              <div class="ec-cart-summary-bottom">
+                <div class="ec-cart-summary">
+                  <div>
+                    <span class="text-left">Sub-Total</span>
+                    <span class="text-right">৳{{ cart.total_cost }}</span>
+                  </div>
+                  <div>
+                    <span class="text-left">Delivery Charges</span>
+                    <span class="text-right">৳80.00</span>
+                  </div>
+                  <div>
+                    <span class="text-left">Coupan Discount</span>
+                    <span class="text-right"
+                      ><a class="ec-cart-coupan">Apply Coupan</a></span
+                    >
+                  </div>
+                  <div class="ec-cart-coupan-content">
+                    <form
+                      class="ec-cart-coupan-form"
+                      name="ec-cart-coupan-form"
+                      method="post"
+                      action="#"
+                    >
+                      <input
+                        class="ec-coupan"
+                        type="text"
+                        required=""
+                        placeholder="Enter Your Coupan Code"
+                        name="ec-coupan"
+                        value=""
+                      />
+                      <button
+                        class="ec-coupan-btn button btn-primary"
+                        type="submit"
+                        name="subscribe"
+                        value=""
+                      >
+                        Apply
+                      </button>
+                    </form>
+                  </div>
+                  <div class="ec-cart-summary-total">
+                    <span class="text-left">Total Amount</span>
+                    <span class="text-right"
+                      >৳{{ cart.total_cost|add:"80" }}</span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Sidebar Summary Block -->
+        </div>
+      </div>
+      {% else %}
+
+      <div class="table-content cart-table-content">
+        <table>
+          {% comment %}
+          <b>Your cart is empty</b>
+          {% endcomment %}
+        </table>
+      </div>
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="ec-cart-update-bottom">
+            <img
+              src="{% static 'assets/images/uploads/misc/empty-cart.png' %}"
+              alt=""
+              style="width: 100%"
+            />
+            <br />
+          </div>
+        </div>
+      </div>
+      <a href="{% url 'home' %}" class="btn btn-info">Continue Shopping</a>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% endblock content %}
